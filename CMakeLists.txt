@@ -13,8 +13,10 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake" )
 find_package(DirectX REQUIRED)
 
 set(SOURCE_FILES 
-	src/d3dInit.cpp
-	src/d3dUtility.cpp
+	Source/Main.cpp
+	Source/CGameApp.cpp
+	Source/CTimer.cpp
+	Source/CObject.cpp
 )
 
 # Platform flags
@@ -24,12 +26,12 @@ if(WIN32)
 endif ()
 
 
-add_executable(DirectXCmake ${PLATFORM_FLAGS} ${SOURCE_FILES})
+add_executable(GameInstitute ${PLATFORM_FLAGS} ${SOURCE_FILES})
 
-target_include_directories(DirectXCmake PUBLIC src ${DirectX_INCLUDE_DIR})
-target_link_libraries(DirectXCmake ${DirectX_LIBRARY} ${DirectX_D3DX9_LIBRARY} Winmm)
+target_include_directories(GameInstitute PUBLIC Source Includes ${DirectX_INCLUDE_DIR})
+target_link_libraries(GameInstitute ${DirectX_LIBRARY} ${DirectX_D3DX9_LIBRARY} Winmm)
 
 if(CMAKE_EXPORT_COMPILE_COMMANDS)
-    add_custom_command(TARGET DirectXCmake POST_BUILD
+    add_custom_command(TARGET GameInstitute POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/compile_commands.json ${CMAKE_SOURCE_DIR}/compile_commands.json)
 endif()
